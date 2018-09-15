@@ -27,32 +27,37 @@
     </properties>
 
     <dependencies>
+        <!-- Web 환경 Spring Mvc  -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-
+        <!-- Data Access JPA -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
-
+        <!-- Spring boot Test -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+
+        <!-- Spring Rest Docs -->
+        <!-- 자동 문서화 작업을 하기 위해서 만드시 필요함 -->
         <dependency>
             <groupId>org.springframework.restdocs</groupId>
             <artifactId>spring-restdocs-mockmvc</artifactId>
             <scope>test</scope>
         </dependency>
-
+        <!-- lombook -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
         </dependency>
 
+        <!-- H2 Embedded Database -->
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
@@ -67,11 +72,13 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
+            <!-- 자동 문서화 생성을 위한 플러그인 설정 -->
             <plugin>
                 <groupId>org.asciidoctor</groupId>
                 <artifactId>asciidoctor-maven-plugin</artifactId>
                 <version>${asciidoctorj.version}</version>
                 <executions>
+                    <!--Surefire Plugin 은 unit test들을 실행하기 위해 build lifecycle의 test phase동안 사용되어 진다.-->
                     <execution>
                         <id>generate-docs</id>
                         <phase>prepare-package</phase>
@@ -81,6 +88,17 @@
                         <configuration>
                             <backend>html</backend>
                             <doctype>book</doctype>
+                            <!-- 자동화된 문서 html 경로
+                                 targer/static/docs jar파일로 서버 실행시
+                                 http://localhost:8080/docs/index.html 호출시 해당 페이지 조회
+                            -->
+                            <outputDirectory>
+                                ${project.build.outputDirectory}/static/docs
+                            </outputDirectory>
+                            <attributes>
+                                <!-- 프로퍼티스에 스니펫디렉토리를 추가해 준다. (생성된 코드조각을 output 경로를 설정) -->
+                                <snippets>${project.build.directory}/generated-snippets</snippets>
+                            </attributes>
                         </configuration>
                     </execution>
                 </executions>
