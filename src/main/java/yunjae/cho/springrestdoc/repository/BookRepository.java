@@ -1,4 +1,4 @@
-package yunjae.cho.springrestdoc;
+package yunjae.cho.springrestdoc.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import yunjae.cho.springrestdoc.domain.Book;
